@@ -7,8 +7,9 @@ exports.handler = async (event) => {
     const data = await client.send(new ScanCommand(params));
     return data.Items.map(item => ({
       id: item.id ? item.id.S : null,
-      firstName: item.firstName ? item.firstName.S : null,
-      lastName: item.lastName ? item.lastName.S : null
+      title: item.title ? item.title.S : null,
+      authorId: item.authorId ? item.authorId.S : null,
+      category: item.category ? item.category.S : null
     }));
   } catch (err) {
     console.error(err);
