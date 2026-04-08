@@ -2,7 +2,6 @@ provider "aws" {
   region = var.aws_region
 }
 
-# 1. Головний генератор імен
 module "base_label" {
   source      = "cloudposse/label/null"
   version     = "0.25.0"
@@ -24,9 +23,6 @@ module "dynamodb_authors" {
   context    = module.base_label.context
 }
 
-# ==========================================
-# LAMBDA 1: GET ALL AUTHORS
-# ==========================================
 data "archive_file" "get_all_authors_zip" {
   type        = "zip"
   source_dir  = "${path.module}/functions/get-all-authors"
@@ -63,9 +59,6 @@ resource "aws_lambda_function" "get_all_authors" {
   environment { variables = { REGION = var.aws_region, TABLE_NAME = module.dynamodb_authors.table_name } }
 }
 
-# ==========================================
-# LAMBDA 2: GET ALL COURSES
-# ==========================================
 data "archive_file" "get_all_courses_zip" {
   type        = "zip"
   source_dir  = "${path.module}/functions/get-all-courses"
@@ -102,10 +95,6 @@ resource "aws_lambda_function" "get_all_courses" {
   environment { variables = { REGION = var.aws_region, TABLE_NAME = module.dynamodb_courses.table_name } }
 }
 
-# ==========================================
-# LAMBDAS 3-6: GET, SAVE, UPDATE, DELETE COURSE
-# (Використовують спільну роль для мутацій)
-# ==========================================
 data "archive_file" "get_course_zip" {
   type        = "zip"
   source_dir  = "${path.module}/functions/get-course"

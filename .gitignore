@@ -4,3 +4,5 @@
 *.tfvars
 *.zip
 .DS_Store
+crash.log
+crash.*.log
