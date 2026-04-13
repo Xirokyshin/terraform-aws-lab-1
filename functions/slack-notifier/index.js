@@ -2,7 +2,7 @@ const https = require('https');
 
 exports.handler = async (event) => {
     const snsMessage = event.Records[0].Sns.Message;
-    const webhookUrl = "https://hooks.slack.com/services/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"; 
+    const webhookUrl = ""; 
 
     const payload = JSON.stringify({ text: `🚨 *AWS Alert!* \n ${snsMessage}` });
 
