@@ -32,6 +32,8 @@ exports.handler = async (event) => {
   try {
     await client.send(new PutItemCommand(params));
     
+    console.log("Course saved successfully");
+
     // ВАЖЛИВО: Створюємо правильну відповідь ДЛЯ ФРОНТЕНДУ (з нашим новим ID)
     const responseBody = {
         id: finalId,

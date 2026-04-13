@@ -234,6 +234,12 @@ resource "aws_api_gateway_integration_response" "cors" {
 resource "aws_api_gateway_deployment" "this" {
   rest_api_id = aws_api_gateway_rest_api.this.id
 
+  # === ОСЬ ЦЯ МАГІЯ, ЯКА РОБИТЬ АВТОМАТИЧНИЙ DEPLOY ===
+  triggers = {
+    redeployment = timestamp()
+  }
+  # ====================================================
+
   depends_on = [
     aws_api_gateway_integration.get_all_courses_integration,
     aws_api_gateway_integration.save_course_integration,
