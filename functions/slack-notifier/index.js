@@ -2,7 +2,7 @@ const https = require('https');
 
 exports.handler = async (event) => {
     const snsMessage = event.Records[0].Sns.Message;
-    const webhookUrl = ""; 
+    const webhookUrl = "$$$$$$$$$$$$$$$$$$$$$$"; 
 
     const payload = JSON.stringify({ text: `🚨 *AWS Alert!* \n ${snsMessage}` });
 
