@@ -8,7 +8,12 @@ exports.handler = async (event) => {
   try {
     body = event.body ? JSON.parse(event.body) : event;
   } catch (e) {
-    return { statusCode: 400, body: JSON.stringify({ message: "Invalid JSON format" }) };
+    console.error("Invalid JSON:", e);
+    return { 
+      statusCode: 400, 
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }, // ДОДАНО CORS
+      body: JSON.stringify({ message: "Invalid JSON format" }) 
+    };
   }
   
   // Беремо ID з URL (courseId), а не з тіла, щоб уникнути конфліктів
@@ -31,6 +36,11 @@ exports.handler = async (event) => {
       body: JSON.stringify({ id: courseId, ...body }) 
     };
   } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ message: "Error updating course" }) };
+    console.error("Error updating course:", err);
+    return { 
+      statusCode: 500, 
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }, // ДОДАНО CORS
+      body: JSON.stringify({ message: "Error updating course", details: err.message }) 
+    };
   }
 };

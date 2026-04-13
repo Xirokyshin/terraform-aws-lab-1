@@ -13,6 +13,11 @@ exports.handler = async (event) => {
       body: JSON.stringify({ message: `Course ${courseId} deleted successfully` })
     };
   } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ message: "Error deleting course" }) };
+    console.error("Error deleting course:", err); // Логуємо помилку
+    return { 
+      statusCode: 500, 
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }, // ТЕПЕР CORS Є І ТУТ
+      body: JSON.stringify({ message: "Error deleting course", details: err.message }) 
+    };
   }
 };
